@@ -37,7 +37,7 @@
   2. ##### 필요한 변수만 추출하기
 
      ```R
-     # 1. select()를 이요하여 추출
+     # 1. select()를 이용하여 추출
      exam %>% select(math)
      
      # 동시에 여러 변수를 쉼표를 넣어 추출 가능
@@ -55,5 +55,17 @@
      exam %>% filter(class == 1) %>% select(english)
      ```
 
+  3. ##### 순서대로 정렬하기
+  
+     ```R
+     # arrange()를 이용하여 정렬
+     exam %>% arrange(math)	# math 오름차순 정렬
+     
+     exam %>% arrange(desc(math))	# math 내림차순 정렬
+     
+     # 기준을 두가지로 정할수도 있음
+     exam %>% arrange(class, math)	# class를 먼저 정렬하고, math를 다음 기준으로 정렬
+     ```
+  
      
 
