@@ -67,5 +67,66 @@
      exam %>% arrange(class, math)	# class를 먼저 정렬하고, math를 다음 기준으로 정렬
      ```
   
+  4. ##### 파생변수 추가하기
+  
+     ```R
+     # mutate()를 사용하여 기존 데이터에 파생변수를 만들어 추가하기 가능
+     
+     exam %>% mutate(total = math + english + science)
+     
+     # 파생변수 한번에 여러개 추가하기
+     exam %>% mutate(total = math + english + science,
+                     mean = (math + english + science)/3)
+     
+     # ifelse() 활용
+     exam %>% mutate(test = ifelse(science >= 60, "pass", "fail"))
+     ```
+  
+  5. ##### 집단별로 요약하기
+  
+     ```R
+     # 1. summarise()
+     exam %>% summarise(mean_math = mean(math))	# math 평균 산출
+     
+     ##    mean_math
+     ##  1     57.45
+     
+     # 2. 집단별로 요약하기
+     exam %>% group_by(class) # class별로 분리
+     		%>% summarise(mean_math = mean(math))
+     ##  # A tibble: 5 x 2
+     ##    class mean_math
+     ##    <int>     <dbl>
+     ##  1     1     46.25
+     ##  2     2     61.25
+     ##  3     3     45.00
+     ##  4     4     56.75
+     ##  5     5     78.00
+     ```
+  
+  6. ##### 데이터 합치기
+  
+     ```R
+     # 가로로 합치기
+     # 중간고사 데이터 생성
+     test1 <- data.frame(id = c(1, 2, 3, 4, 5),
+                         midterm = c(60, 80, 70, 90, 85))
+     # 기말고사 데이터 생성
+     test2 <- data.frame(id = c(1, 2, 3, 4, 5),
+                         final = c(70, 83, 6, 95, 80))
+     
+     total <- left_join(test1, test2, by = "id") # id를 기준으로 합쳐 total에 할당
+     ```
+  
+     ```R
+     # 세로로 합치기
+     groupA <- data.frame(id = c(1, 2, 3, 4, 5),
+                          test = c(60, 80, 70, 90, 85))
+     groupB <- data.frame(id = c(6, 7, 8, 9, 10),
+                         final = c(70, 83, 6, 95, 80))
+     
+     group_all <- bind_rows(groupA, groupB)
+     ```
+  
      
 
