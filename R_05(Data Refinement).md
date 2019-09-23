@@ -28,7 +28,41 @@
    table(is.na(df$sex))
    table(is.na(df$score))
    
-   # * 결측치가 표함된 데이터를 함수에 적용하면 연산되지 않음
+   # * 결측치가 포함된 데이터를 함수에 적용하면 연산되지 않음
    ```
 
+   ```R
+   # 결측치 제거하기
+   # 1. 결측치 있는 행 제거
+   library(dplyr)
+   df %>% filter(is.na(score))	# score가 NA인 데이터만 출력
+   
+   ##   sex  score
+   ## 1   F     NA
+   
+   # 2. 결측치를 제외한 행 추출
+   df %>% filter(!is.na(score))
+   
+   ##   sex score
+   ## 1   M     5
+   ## 2   F     4
+   ## 3 <NA>    3
+   ## 4   M     4
+   
+   # 3. 여러 변수 동시에 결측치 없는 데이터 추출
+   df_nomiss <- df %>% filter(!is.na(score) & !is.na(sex))
+   df_nomiss
+   
+   ##   sex score
+   ## 1   M     5
+   ## 2   F     4
+   ## 3   M     4
+   
+   # * 결측치가 하나라도 있으면 제거
+   df_nomiss2 <- na.omit(df)
+   
+   # 이렇게 한번에 결측치를 제거하는 방법이 편하긴 하지만,
+   # 데이터 북석에 필요한 행들끼리 상관분석이 가능할때에도 행이 제거될 가능성이 존재해 비추천
+   ```
+   
    
