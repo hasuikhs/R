@@ -65,4 +65,11 @@
    # 데이터 북석에 필요한 행들끼리 상관분석이 가능할때에도 행이 제거될 가능성이 존재해 비추천
    ```
    
+   ```R
+   # 평균값으로 결측치 대체하기
+   mean(exam$math, na.rm = T)	# 결측치 제외하고 math 평균 산출
+   
+   exam$math <- ifelse(is.na(exam$math), 55, exam$math) # math가 NA면 55로 대체
+   ```
+   
    
