@@ -72,4 +72,36 @@
    exam$math <- ifelse(is.na(exam$math), 55, exam$math) # math가 NA면 55로 대체
    ```
    
+2. ##### 이상치 정제하기
+
+   ```R
+   # 이상치 제거하기
+   # 1. 먼저 데이터를 생성 sex에 3, score에 6이 이상치
+   outlier <- data.frame(sex = c(1, 2, 1, 3, 2, 1),
+                         score = c(5, 4, 3, 4, 2, 6))
    
+   # 2. 이상치 확인하기
+   table(outlier$sex)
+   
+   ##
+   ##  1  2  3
+   ##  3  2  1
+   
+   table(outlier$score)
+   
+   ##
+   ##  2  3  4  5  6
+   ##  1  1  2  1  1
+   
+   # 3. 이상치를 결측치로 처리하기
+   # sex가 3이면 NA 할당
+   outlier$sex <- ifelse(outlier$sex == 3, NA, outlier$sex)
+   
+   # score가 5보다 크면 NA 할당
+   outlier$score <- ifelse(outlier$score >= 5, NA, outlier$score)
+   
+   # * 결측치 처리하는 방식으로 다시 처리
+   ```
+
+   
+
